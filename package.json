@@ -3,13 +3,21 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run start:shell",
+    "start:shell": "ng serve shell  -o --port 5000",
+    "start:mfe1": "ng serve my-first-project -o --port 3000",
+    "start:all": "concurrently \"npm run start:shell\" \"npm run start:my-first-project\" ",
+    "build:shell": "ng build shell --prod",
+    "build:mfe1": "ng build my-first-project --prod",
+    "serve:dist": "concurrently \"serve dist/shell -l 5000 -s\" \"serve dist/my-first-project -l 3000 -s\" ",
+    "build": "npm run build:shell && npm run build:my-first-project",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "run:all": "node node_modules/@angular-architects/module-federation/src/server/mf-dev-server.js"
   },
   "private": true,
   "dependencies": {
+    "@angular-architects/module-federation": "^15.0.3",
     "@angular/animations": "^15.1.0",
     "@angular/common": "^15.1.0",
     "@angular/compiler": "^15.1.0",
@@ -23,6 +31,7 @@
     "zone.js": "~0.12.0"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^15.1.2",
     "@angular/cli": "~15.1.1",
     "@angular/compiler-cli": "^15.1.0",
     "@types/jasmine": "~4.3.0",
@@ -32,6 +41,7 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.0.0",
+    "ngx-build-plus": "^15.0.0",
     "typescript": "~4.9.4"
   }
 }
