@@ -21,7 +21,7 @@ Sonarqube-Check:
     paths:
       - .sonar/cache
       - .scannerwork
-  stage: code-analysis
+  stage: Test
   script: 
     - sonar-scanner -Dsonar.projectKey=$SONAR_TOKEN  -Dsonar.sources=. -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -D sonar.projectName=$CI_PROJECT_NAME -Dsonar.qualitygate.wait=true -Dsonar.branch.name=$CI_COMMIT_REF_NAME -Dsonar.sourceEncoding=UTF-8  
   allow_failure: true
