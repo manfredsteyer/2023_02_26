@@ -42,7 +42,7 @@ MyFirstAppBuild:
   script:
     - echo "Deploying in https://micofrontend-my-first-app.pacewisdom.in"
     - rsync -ravz --exclude '.git/' ./projects/my-first-app $CODE_DIR/ --delete
-    - docker compose -f $STACK_FILE build
+    - docker-compose -f $STACK_FILE build
   environment:
     name: $CI_COMMIT_REF_NAME
     url: https://micofrontend-my-first-app.pacewisdom.in
@@ -58,7 +58,7 @@ MyFirstAppDeploy:
     CI_COMMIT_REF_NAME:  module-federation-POC
   script:
     - echo "Deployment started..."
-    - docker compose -f $STACK_FILE up -d
+    - docker-compose -f $STACK_FILE up -d
     - docker exec proxy_server nginx -s reload
   environment:
     name: $CI_COMMIT_REF_NAME
@@ -76,7 +76,7 @@ ShellBuild:
   script:
     - echo "Deploying in https://micofrontend-shell.pacewisdom.in"
     - rsync -ravz --exclude '.git/' ./projects/shell $CODE_DIR_SHELL/ --delete
-    - docker compose -f $STACK_FILE_SHELL build
+    - docker-compose -f $STACK_FILE_SHELL build
   environment:
     name: $CI_COMMIT_REF_NAME
     url: https://micofrontend-shell.pacewisdom.in
@@ -92,7 +92,7 @@ ShellDeploy:
     CI_COMMIT_REF_NAME:  module-federation-POC
   script:
     - echo "Deployment started..."
-    - docker compose -f $STACK_FILE_SHELL up -d
+    - docker-compose -f $STACK_FILE_SHELL up -d
     - docker exec proxy_server nginx -s reload
   environment:
     name: $CI_COMMIT_REF_NAME
