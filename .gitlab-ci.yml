@@ -1,0 +1,106 @@
+variables:
+  STACK_FILE: "/root/docker/inhouse_projects/micofrontend-poc/my-first-app/docker-compose.yml"
+  CODE_DIR: "/root/docker/inhouse_projects/micofrontend-poc/my-first-app/app/code"
+  STACK_FILE_SHELL: "/root/docker/inhouse_projects/micofrontend-poc/shell/docker-compose.yml"
+  CODE_DIR_SHELL: "/root/docker/inhouse_projects/micofrontend-poc/shell/app/code"
+
+before_script:
+  - echo "Runner started"
+
+stages:
+  - Test
+  - MyFirstAppBuild
+  - MyFirstAppDeploy
+  - ShellBuild
+  - ShellDeploy
+
+Sonarqube-Check:
+  image:
+    name: sonarsource/sonar-scanner-cli:latest
+    entrypoint: [""]
+  variables:
+    GIT_DEPTH: 0
+  cache:
+    key: "${CI_JOB_NAME}"
+    paths:
+      - .sonar/cache
+      - .scannerwork
+  stage: Test
+  script: 
+    - sonar-scanner -Dsonar.projectKey=$SONAR_TOKEN  -Dsonar.sources=. -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -D sonar.projectName=$CI_PROJECT_NAME -Dsonar.qualitygate.wait=true -Dsonar.branch.name=$CI_COMMIT_REF_NAME -Dsonar.sourceEncoding=UTF-8  
+  allow_failure: true
+  only:
+    - module-federation-POC
+  tags:
+   - pacewisdom-docker-shared-runner
+
+
+MyFirstAppBuild:
+  stage: MyFirstAppBuild
+  variables:
+    CI_COMMIT_REF_NAME:  module-federation-POC
+  script:
+    - echo "Deploying in https://micofrontend-my-first-app.pacewisdom.in"
+    - rsync -ravz --exclude '.git/' ./projects/my-first-app $CODE_DIR/ --delete
+    - docker compose -f $STACK_FILE build
+  environment:
+    name: $CI_COMMIT_REF_NAME
+    url: https://micofrontend-my-first-app.pacewisdom.in
+  only:
+    - module-federation-POC
+  tags:
+    - inhouse-runner2
+  allow_failure: false
+
+MyFirstAppDeploy:
+  stage: MyFirstAppDeploy
+  variables:
+    CI_COMMIT_REF_NAME:  module-federation-POC
+  script:
+    - echo "Deployment started..."
+    - docker compose -f $STACK_FILE up -d
+    - docker exec proxy_server nginx -s reload
+  environment:
+    name: $CI_COMMIT_REF_NAME
+    url: https://micofrontend-my-first-app.pacewisdom.in
+  only:
+    - module-federation-POC
+  tags:
+    - inhouse-runner2
+  allow_failure: false
+
+ShellBuild:
+  stage: ShellBuild
+  variables:
+    CI_COMMIT_REF_NAME:  module-federation-POC
+  script:
+    - echo "Deploying in https://micofrontend-shell.pacewisdom.in"
+    - rsync -ravz --exclude '.git/' ./projects/shell $CODE_DIR_SHELL/ --delete
+    - docker compose -f $STACK_FILE_SHELL build
+  environment:
+    name: $CI_COMMIT_REF_NAME
+    url: https://micofrontend-shell.pacewisdom.in
+  only:
+    - module-federation-POC
+  tags:
+    - inhouse-runner2
+  allow_failure: false
+
+ShellDeploy:
+  stage: ShellDeploy
+  variables:
+    CI_COMMIT_REF_NAME:  module-federation-POC
+  script:
+    - echo "Deployment started..."
+    - docker compose -f $STACK_FILE_SHELL up -d
+    - docker exec proxy_server nginx -s reload
+  environment:
+    name: $CI_COMMIT_REF_NAME
+    url: https://micofrontend-shell.pacewisdom.in
+  only:
+    - module-federation-POC
+  tags:
+    - inhouse-runner2
+  allow_failure: false
+
+
