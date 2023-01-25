@@ -78,7 +78,7 @@
 					"defaultConfiguration": "development",
 					"options": {
 						"port": 3000,
-						"publicHost": "http://localhost:3000",
+						"publicHost": "https://micofrontend-my-first-app.pacewisdom.in",
 						"extraWebpackConfig": "projects/my-first-app/webpack.config.js"
 					}
 				},
