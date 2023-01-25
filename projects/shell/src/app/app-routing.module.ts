@@ -17,7 +17,7 @@ const routes: Routes = [
     path: 'business-unit',
     loadChildren: () => loadRemoteModule({
       type: 'module',
-      remoteEntry: 'https://micofrontend-my-first-app.pacewisdom.in/remoteEntry.js',
+      remoteEntry: 'http://localhost:3000/remoteEntry.js',
       exposedModule: './Module'
     }).then(m => m.ManageBusinessUnitModule)
   },
