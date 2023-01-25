@@ -30,7 +30,7 @@ Sonarqube-Check:
     - sonar-scanner -Dsonar.projectKey=$SONAR_TOKEN  -Dsonar.sources=. -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.login=$SONAR_TOKEN -D sonar.projectName=$CI_PROJECT_NAME -Dsonar.qualitygate.wait=true -Dsonar.branch.name=$CI_COMMIT_REF_NAME -Dsonar.sourceEncoding=UTF-8  
   allow_failure: true
   only:
-    - module-federation-POC
+    - uat
   tags:
    - pacewisdom-docker-shared-runner
 
@@ -38,7 +38,7 @@ Sonarqube-Check:
 MyFirstAppBuild:
   stage: MyFirstAppBuild
   variables:
-    CI_COMMIT_REF_NAME:  module-federation-POC
+    CI_COMMIT_REF_NAME:  uat
   script:
     - echo "Deploying in https://micofrontend-my-first-app.pacewisdom.in"
     - rsync -ravz --exclude '.git/' ./projects/my-first-app $CODE_DIR/ --delete
@@ -47,7 +47,7 @@ MyFirstAppBuild:
     name: $CI_COMMIT_REF_NAME
     url: https://micofrontend-my-first-app.pacewisdom.in
   only:
-    - module-federation-POC
+    - uat
   tags:
     - inhouse-runner2
   allow_failure: false
@@ -55,7 +55,7 @@ MyFirstAppBuild:
 MyFirstAppDeploy:
   stage: MyFirstAppDeploy
   variables:
-    CI_COMMIT_REF_NAME:  module-federation-POC
+    CI_COMMIT_REF_NAME:  uat
   script:
     - echo "Deployment started..."
     - docker-compose -f $STACK_FILE up -d
@@ -64,7 +64,7 @@ MyFirstAppDeploy:
     name: $CI_COMMIT_REF_NAME
     url: https://micofrontend-my-first-app.pacewisdom.in
   only:
-    - module-federation-POC
+    - uat
   tags:
     - inhouse-runner2
   allow_failure: false
@@ -72,7 +72,7 @@ MyFirstAppDeploy:
 ShellBuild:
   stage: ShellBuild
   variables:
-    CI_COMMIT_REF_NAME:  module-federation-POC
+    CI_COMMIT_REF_NAME:  uat
   script:
     - echo "Deploying in https://micofrontend-shell.pacewisdom.in"
     - rsync -ravz --exclude '.git/' ./projects/shell $CODE_DIR_SHELL/ --delete
@@ -81,7 +81,7 @@ ShellBuild:
     name: $CI_COMMIT_REF_NAME
     url: https://micofrontend-shell.pacewisdom.in
   only:
-    - module-federation-POC
+    - uat
   tags:
     - inhouse-runner2
   allow_failure: false
@@ -89,7 +89,7 @@ ShellBuild:
 ShellDeploy:
   stage: ShellDeploy
   variables:
-    CI_COMMIT_REF_NAME:  module-federation-POC
+    CI_COMMIT_REF_NAME:  uat
   script:
     - echo "Deployment started..."
     - docker-compose -f $STACK_FILE_SHELL up -d
@@ -98,7 +98,7 @@ ShellDeploy:
     name: $CI_COMMIT_REF_NAME
     url: https://micofrontend-shell.pacewisdom.in
   only:
-    - module-federation-POC
+    - uat
   tags:
     - inhouse-runner2
   allow_failure: false
