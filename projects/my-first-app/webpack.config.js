@@ -9,6 +9,7 @@ sharedMappings.register(
   [/* mapped paths to share */]);
 
 module.exports = {
+  mode: "production",
   output: {
     uniqueName: "myFirstApp",
     publicPath: "auto"
