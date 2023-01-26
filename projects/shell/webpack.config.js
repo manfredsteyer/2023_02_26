@@ -25,12 +25,16 @@ module.exports = {
   experiments: {
     outputModule: true
   },
-  devServer: {
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
-      "Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
-    }
+  proxy: {
+    '/micofrontend-shell.pacewisdom.in': {
+      target: 'https://micofrontend-shell.pacewisdom.in/',
+      secure: false,
+    },
+  },
+  headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Headers': '*',
+      'Access-Control-Allow-Methods': '*',
   },
   plugins: [
     new ModuleFederationPlugin({
