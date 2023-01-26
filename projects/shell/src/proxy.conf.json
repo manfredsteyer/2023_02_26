@@ -1,0 +1,7 @@
+{
+    "/micofrontend-shell.pacewisdom.in/": {
+        "target": "https://micofrontend-shell.pacewisdom.in/",
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

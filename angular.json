@@ -176,7 +176,8 @@
 					"configurations": {
 						"production": {
 							"browserTarget": "shell:build:production",
-							"extraWebpackConfig": "projects/shell/webpack.prod.config.js"
+							"extraWebpackConfig": "projects/shell/webpack.prod.config.js",
+							"proxyConfig" : "projects/shell/src/proxy.conf.json"
 						},
 						"development": {
 							"browserTarget": "shell:build:development"
