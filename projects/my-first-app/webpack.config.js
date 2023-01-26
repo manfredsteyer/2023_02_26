@@ -25,12 +25,12 @@ module.exports = {
   experiments: {
     outputModule: true
   },
-  proxy: {
-    '/micofrontend-shell.pacewisdom.in': {
-      target: 'https://micofrontend-shell.pacewisdom.in/',
-      secure: false,
-    },
-  },
+  // proxy: {
+  //   '/micofrontend-shell.pacewisdom.in': {
+  //     target: 'https://micofrontend-shell.pacewisdom.in/',
+  //     secure: false,
+  //   },
+  // },
   headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Headers': '*',
