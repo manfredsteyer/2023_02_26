@@ -9,7 +9,6 @@ sharedMappings.register(
   [/* mapped paths to share */]);
 
 module.exports = {
-  mode: "production",
   output: {
     uniqueName: "myFirstApp",
     publicPath: "auto"
@@ -24,17 +23,6 @@ module.exports = {
   },
   experiments: {
     outputModule: true
-  },
-  // proxy: {
-  //   '/micofrontend-shell.pacewisdom.in': {
-  //     target: 'https://micofrontend-shell.pacewisdom.in/',
-  //     secure: false,
-  //   },
-  // },
-  headers: {
-      'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Headers': '*',
-      'Access-Control-Allow-Methods': '*',
   },
   plugins: [
     new ModuleFederationPlugin({
@@ -59,7 +47,9 @@ module.exports = {
         "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
         "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
         "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-
+        '@angular/localize/init': { singleton: true, strictVersion: true, includeSecondaries: true },
+        '@angular/localize': { singleton: true, strictVersion: true, includeSecondaries: true },
+        
         ...sharedMappings.getDescriptors()
       })
 
