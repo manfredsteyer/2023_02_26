@@ -21,7 +21,8 @@
 						"index": "projects/my-first-app/src/index.html",
 						"main": "projects/my-first-app/src/main.ts",
 						"polyfills": [
-							"zone.js"
+							"zone.js",
+							"@angular/localize/init"
 						],
 						"tsConfig": "projects/my-first-app/tsconfig.app.json",
 						"inlineStyleLanguage": "scss",

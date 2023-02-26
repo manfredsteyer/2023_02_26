@@ -47,8 +47,8 @@ module.exports = {
         "@angular/common": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
         "@angular/common/http": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
         "@angular/router": { singleton: true, strictVersion: true, requiredVersion: 'auto' },
-        '@angular/localize/init': { singleton: true, strictVersion: true, includeSecondaries: true },
-        '@angular/localize': { singleton: true, strictVersion: true, includeSecondaries: true },
+        // '@angular/localize/init': { singleton: true, strictVersion: true, includeSecondaries: true },
+        // '@angular/localize': { singleton: true, strictVersion: true, includeSecondaries: true },
         
         ...sharedMappings.getDescriptors()
       })
